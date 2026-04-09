@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: smartstock-backend
+    container_name: smartstock-app
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www/html
+    environment:
+      - DB_HOST=db
+  db:
+    image: postgres:15-alpine
+    container_name: smartstock-db
+    environment:
+      - POSTGRES_DB=smartstock
+      - POSTGRES_PASSWORD=secret
+    ports:
+      - "5432:5432"
